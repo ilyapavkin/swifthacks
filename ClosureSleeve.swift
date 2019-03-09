@@ -26,3 +26,12 @@ extension UIControl {
         objc_setAssociatedObject(self, String(format: "[%d]", arc4random()), sleeve, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
     }
 }
+
+extension UIBarButtonItem {
+    func addAction(_ closure: @escaping () -> ()) {
+        let sleeve = ClosureSleeve(closure)
+        target = sleeve
+        action = #selector(ClosureSleeve.invoke)
+        objc_setAssociatedObject(self, String(format: "[%d]", arc4random()), sleeve, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+    }
+}
